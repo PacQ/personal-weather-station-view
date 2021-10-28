@@ -19,12 +19,33 @@ function(err, data) {
   if (err !== null) {
 	console.log("Something went wrong: " + err)
   } else {
-	console.log("Data reads: " + JSON.stringify(data))
-	document.getElementById("outsideTemp").textContent = data[0].modules[0].temp
-	document.getElementById("minOutsideTemp").textContent = data[0].modules[0].min_temp
-	document.getElementById("maxOutsideTemp").textContent = data[0].modules[0].max_temp
-	document.getElementById("pressure").textContent = data[0].pressure
-	document.getElementById("outsideHumidity").textContent = data[0].modules[0].humidity
-	document.getElementById("rain").textContent = data[0].modules[2].rainLastMeasured
+		console.log("Data reads: " + JSON.stringify(data))
+		document.getElementById("outsideTemp").textContent = Number(data[0].modules[0].temp).toFixed(1)
+		document.getElementById("minOutsideTemp").textContent = data[0].modules[0].min_temp
+		document.getElementById("maxOutsideTemp").textContent = data[0].modules[0].max_temp
+		document.getElementById("pressure").textContent = data[0].pressure
+		document.getElementById("outsideHumidity").textContent = data[0].modules[0].humidity
+		document.getElementById("rain").textContent = data[0].modules[2].rainLastMeasured
+
+		// trend for outdoor temp
+		let outTrend = data[0].modules[0].trend_temp
+		const outTrendCaret = document.getElementById("outdoorTrend")
+		if (outTrend == "up") {
+			outTrendCaret.className = "bi bi-caret-up-fill"
+		}else if (outTrend == "down") {
+			outTrendCaret.className = "bi bi-caret-down-fill"
+		}
+
+		//trend for pressure
+		let pressureTrend = data[0].trend_pressure
+		const pressureTrendCaret = document.getElementById("pressureTrendCaret")
+		if (pressureTrend == "up") {
+			pressureTrendCaret.className = "bi bi-caret-up-fill"
+		}else if (pressureTrend == "down") {
+			pressureTrendCaret.className = "bi bi-caret-down-fill"
+		}
+
+		const theSvg = document.getElementById("svg")
+		theSvg.setAttribute("transform", "rotate(180)");
   }
 });
