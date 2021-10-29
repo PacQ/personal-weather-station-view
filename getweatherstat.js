@@ -13,13 +13,20 @@ var getJSON = function(url, callback) {
     xhr.send();
 };
 
-//getJSON('https://jsonmock.hackerrank.com/api/movies',
 getJSON('https://weather.pacq.workers.dev/',
 function(err, data) {
   if (err !== null) {
 	console.log("Something went wrong: " + err)
   } else {
-		console.log("Data reads: " + JSON.stringify(data))
+		//Chech if access token is ok
+		if (data.code == 3) {
+			if (confirm("Access token has expired. Ok to refresh?")) {
+				location.reload()
+			}
+			return
+		}
+
+		//console.log("Data reads: " + JSON.stringify(data))
 		document.getElementById("outsideTemp").textContent = Number(data[0].modules[0].temp).toFixed(1)
 		document.getElementById("minOutsideTemp").textContent = data[0].modules[0].min_temp
 		document.getElementById("maxOutsideTemp").textContent = data[0].modules[0].max_temp
