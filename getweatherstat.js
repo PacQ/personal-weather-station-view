@@ -32,7 +32,8 @@ function(err, data) {
 		document.getElementById("maxOutsideTemp").textContent = data[0].modules[0].max_temp
 		document.getElementById("pressure").textContent = data[0].pressure
 		document.getElementById("outsideHumidity").textContent = data[0].modules[0].humidity
-		document.getElementById("rain").textContent = data[0].modules[2].rainLastMeasured
+		document.getElementById("rain").textContent = data[0].modules[2].rainToday
+		
 		// indoor data 1
 		document.getElementById("indoorTemp1").textContent = Number(data[0].temp).toFixed(1)
 		document.getElementById("minIndoorTemp1").textContent = data[0].min_temp
